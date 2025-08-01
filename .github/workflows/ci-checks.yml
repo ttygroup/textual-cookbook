@@ -30,3 +30,10 @@ jobs:
 
       - name: Run Nox sessions
         run: nox      
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()  # Upload even if tests fail
+        with:
+          name: test-report
+          path: docs/reports/*-report.html
