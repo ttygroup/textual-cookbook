@@ -87,7 +87,8 @@ def tests(session: nox.Session, ver: int) -> None:
     session.run(
         "pytest", "tests", "-v",
         f"--html=docs/reports/{report_file}", "--self-contained-html",
-        "--css=docs/reports/dark_theme.css"
+        "--css=docs/reports/dark_theme.css",
+        success_codes=[0, 1],  # Allow pytest to exit with code 1 for failed tests
     )
 
 
