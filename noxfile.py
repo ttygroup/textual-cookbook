@@ -86,7 +86,8 @@ def tests(session: nox.Session, ver: int) -> None:
     report_file = f"{session.name}-report.html"
     session.run(
         "pytest", "tests", "-v",
-        f"--html=reports/{report_file}", "--self-contained-html", "--css=reports/dark_theme.css"
+        f"--html=docs/reports/{report_file}", "--self-contained-html",
+        "--css=docs/reports/dark_theme.css"
     )
 
 
