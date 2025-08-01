@@ -9,36 +9,31 @@ run-dev script:
 	uv run textual run --dev {{script}}
 
 # Runs ruff, exits with 0 if no issues are found
-lint:
-  @uv run ruff check examples || (echo "Ruff found issues. Please address them." && exit 1)
+lint script:
+  @uv run ruff check {{script}}
 
 # Runs mypy, exits with 0 if no issues are found
-typecheck:
-  @uv run mypy examples || (echo "Mypy found issues. Please address them." && exit 1)
-  @uv run basedpyright examples || (echo "BasedPyright found issues. Please address them." && exit 1)
+typecheck script:
+  @uv run mypy {{script}}
+  @uv run basedpyright {{script}}
 
 # Runs black
-format:
-  @uv run black examples
+format script:
+  @uv run black {{script}}
 
+# Runs pytest using whatever version of Textual is installed
 test:
   @uv run pytest tests -v
 
-# Runs ruff, mypy, and black
-all-checks: lint typecheck format test
-  echo "All checks passed."
-
-# Run the Nox testing suite for comprehensive testing
+# Run the Nox testing suite for comprehensive testing.
+# This will run pytest against all versions of Textual and Python
+# specified in the noxfile.py
 nox:
   nox
-
-# Remove build/dist directories and pyc files
+  
+# Remove all caches and temporary files
 clean:
-  rm -rf build dist
   find . -name "*.pyc" -delete
-
-# Remove tool caches
-clean-caches:
   rm -rf .mypy_cache
   rm -rf .ruff_cache
   rm -rf .nox
@@ -48,7 +43,7 @@ del-env:
   rm -rf .venv
   rm -rf uv.lock
 
-nuke: clean clean-caches del-env
+nuke: clean del-env
   @echo "All build artifacts and caches have been removed."
 
 # Removes all environment and build stuff

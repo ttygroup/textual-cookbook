@@ -1,3 +1,17 @@
+"""Dynamic test function creator script for Textual Cookbook examples
+
+This script dynamically creates test functions for each example
+found in the examples directory.
+
+How it works:
+1. It scans the `examples` directory for Python files.
+2. For each file, it attempts to load the module and find a subclass of `App`
+    (the `get_app_class` function).
+3. If a subclass of `App` cannot be found or loaded, the test will fail.
+4. The script uses a function factory (`make_test`) to create a test
+    function for each example, which is then registered in the global namespace.
+5. Pytest will discover these functions and treat every example as a separate test case.
+"""
 
 from __future__ import annotations
 from pathlib import Path
@@ -53,6 +67,7 @@ def get_app_class(path: Path) -> type[App[None]] | None:
 
 
 def make_test(example_file: Path):
+    "The test function factory"
 
     async def proto_test():  
 
