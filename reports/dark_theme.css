@@ -1,0 +1,54 @@
+/*
+  Dark Mode Override for pytest-html
+*/
+
+body {
+  background-color: #1e1e1e;
+  color: #cccccc;
+}
+
+h1, h2 { color: #ffffff; }
+p { color: #e0e0e0; }
+a { color: #5d9cec; }
+
+#environment td,
+#results-table,
+#results-table th,
+#results-table td,
+.logwrapper .log,
+div.media { border-color: #444444; }
+
+#environment tr:nth-child(odd) {
+background-color: #2c2c2c;
+}
+
+#results-table { color: #cccccc;}
+#results-table th { color: #ffffff;}
+.logwrapper { background-color: #2c2c2c;}
+span.passed, .passed .col-result { color: #4CAF50; }
+
+.logwrapper .logexpander {
+  background-color: #333333;
+  border-color: #666666;
+  color: #cccccc;
+}
+
+.logwrapper .logexpander:hover {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.logwrapper .log {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.collapsible td:not(.col-links):hover::after,
+#environment-header h2:hover::after,
+#environment-header.collapsed h2:hover::after {
+  color: #777777;
+}
+
+.summary__reload__button:hover { background-color: #5cb85c; }
+.filters button, .collapse button { color: #cccccc; }
+.filters button:hover, .collapse button:hover { color: #ffffff; }
