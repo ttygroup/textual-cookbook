@@ -1,0 +1,50 @@
+
+name: Update Pytest Reports
+
+on:
+  push:
+    branches:
+      - main
+  # Manual triggering is allowed as well
+  workflow_dispatch: 
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: '.python-version'
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Setup Nox
+        uses: wntrblm/nox@2025.05.01
+
+      - name: Run Nox sessions
+        run: nox
+
+      - name: Commit and push reports
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add docs/reports/
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update test reports - $(date +'%Y-%m-%d %H:%M:%S')"
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.COOKBOOK_REPORTS_PAT }}
+    
