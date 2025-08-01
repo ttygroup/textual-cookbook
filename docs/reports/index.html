@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Textual Cookbook Reports</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(30, 30, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        h1 {
+            color: #e2e8f0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .reports-grid {
+            display: grid;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .report-item {
+            background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px 30px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .report-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .report-item:hover::before {
+            left: 100%;
+        }
+
+        .report-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border-color: #667eea;
+            background: linear-gradient(135deg, #4b5563 0%, #6b7280 100%);
+        }
+
+        .report-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .report-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .report-description {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .code-accent {
+            font-family: 'Courier New', monospace;
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #a78bfa;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .report-item {
+                padding: 20px;
+            }
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reports for Textual Cookbook</h1>
+        <p class="subtitle">See how each example runs on different Textual versions</p>
+
+        <p class="subtitle">
+            Note that Python 3.9 is used for all tests because that is the minimum Python supported by Textual.
+        </p>
+
+        
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">4</span>
+                <span class="stat-label">Reports</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">5.1.0</span>
+                <span class="stat-label">Latest Textual Tested</span>
+            </div>
+        </div>
+
+        <!-- REMEMBER: <span class="code-accent">TEXT</span> -->
+
+        <div class="reports-grid">
+            <a href="tests-3.9(ver=5.1)-report.html" class="report-item">
+                <div class="report-title">
+                    Textual v5.1
+                </div>
+                <div class="report-description">
+                    Running on Python 3.9
+                </div>
+            </a>
+
+            <a href="tests-3.9(ver=3.0)-report.html" class="report-item">
+                <div class="report-title">
+                    Textual v3.0
+                </div>
+                <div class="report-description">
+                    Running on Python 3.9
+                </div>
+            </a>
+
+            <a href="tests-3.9(ver=2.1)-report.html" class="report-item">
+                <div class="report-title">
+                    Textual v2.1
+                </div>
+                <div class="report-description">
+                    Running on Python 3.9
+                </div>
+            </a>
+
+            <a href="tests-3.9(ver=1.0)-report.html" class="report-item">
+                <div class="report-title">
+                    Textual v1.0
+                </div>
+                <div class="report-description">
+                    Running on Python 3.9
+                </div>
+            </a>
+
+        </div>
+
+        <div class="footer">
+            <p>Reports generated automatically by Pytest and Nox</p>
+        </div>
+    </div>
+</body>
+</html>
