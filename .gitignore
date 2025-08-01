@@ -16,5 +16,9 @@ snapshot_report.html
 *_cache/
 .nox/
 
+# Reports
+*-report.*
+
 # other
+sandbox/
 [Tt]humbs.db

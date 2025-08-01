@@ -21,3 +21,16 @@ dev = [
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+
+[tool.black]
+line-length = 110
+
+[tool.mypy]
+pretty = true
+# strict = true
+disallow_untyped_defs = true
+disallow_untyped_calls = true
+
+[tool.basedpyright]
+include = ["src"]
+typeCheckingMode = "strict"
