@@ -41,6 +41,9 @@ if nox.options.reuse_existing_virtualenvs and DELETE_VENV_ON_EXIT:
         "an error, but it would be pointless)."
     )
 
+nox_report_path = pathlib.Path("docs/reports") / "nox-report.md"
+nox_report_path.unlink(missing_ok=True) 
+
 ################
 # NOX SESSIONS #
 ################
@@ -84,12 +87,24 @@ def tests(session: nox.Session, ver: int) -> None:
     # session.run("mypy", "src")                
     # session.run("basedpyright", "src")
     report_file = f"{session.name}-report.html"
-    session.run(
-        "pytest", "tests", "-v",
-        f"--html=docs/reports/{report_file}", "--self-contained-html",
-        "--css=docs/reports/dark_theme.css",
-        success_codes=[0, 1],  # Allow pytest to exit with code 1 for failed tests
-    )
+
+    try:
+        session.run(
+            "pytest", "tests", "-v",
+            f"--html=docs/reports/{report_file}", "--self-contained-html",
+            "--css=docs/reports/dark_theme.css"
+            # success_codes=[0, 1],  # Allow pytest to exit with code 1 for failed tests
+        )
+    except Exception:
+        with nox_report_path.open("a") as report_file_handle:
+            report_file_handle.write(
+                f"## {session.name} - {ver} | Error Found\n\n"
+            )
+    else:
+        with nox_report_path.open("a") as report_file_handle:
+            report_file_handle.write(
+                f"## {session.name} - {ver} | All Success\n\n"
+            )
 
 
     # This code here will make Nox delete each session after it finishes.
