@@ -37,14 +37,15 @@ jobs:
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          
+          # Create or switch to reports branch
+          git checkout -B reports
+          
           git add docs/reports/
           
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
             git commit -m "Update test reports - $(date +'%Y-%m-%d %H:%M:%S')"
-            git push
+            git push https://${{ secrets.COOKBOOK_REPORTS_PAT }}@github.com/ttygroup/textual-cookbook.git reports
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.COOKBOOK_REPORTS_PAT }}
-    
