@@ -13,4 +13,4 @@ The examples are currently organized into the following categories:
 
 All examples are tested with Nox against multiple verions of Textual (back to 1.0.0) in order to see how far back the examples work. Nearly all of them work all the way back to 1.0.0 with a few exceptions. To view the results of the tests, click the link below:
 
-## [Textual Cookbook Test Results](https://ttygroup.github.io/textual-cookbook/reports/)
+## [Textual Cookbook Test Results](https://ttygroup.github.io/textual-cookbook/docs/)
