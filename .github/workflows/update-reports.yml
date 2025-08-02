@@ -1,4 +1,3 @@
-
 name: Update Pytest Reports
 
 on:
@@ -7,7 +6,6 @@ on:
       - main
   # Manual triggering is allowed as well
   workflow_dispatch: 
-
 
 jobs:
   test:
@@ -33,6 +31,31 @@ jobs:
       - name: Run Nox sessions
         run: nox
 
+      # Upload the reports as artifacts so the next job can access them
+      - name: Upload test reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: docs/reports/
+          retention-days: 1  # Only keep for 1 day since we just need them for the next job
+
+  commit_reports:
+    runs-on: ubuntu-latest
+    needs: test
+    permissions:
+      contents: write  # Grant write access to repository contents for GITHUB_TOKEN
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Download the reports from the previous job
+      - name: Download test reports
+        uses: actions/download-artifact@v4
+        with:
+          name: test-reports
+          path: docs/reports/
+
       - name: Commit and push reports
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -47,5 +70,5 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Update test reports - $(date +'%Y-%m-%d %H:%M:%S')"
-            git push https://${{ secrets.COOKBOOK_REPORTS_PAT }}@github.com/ttygroup/textual-cookbook.git reports
+            git push origin reports  # Use GITHUB_TOKEN via origin
           fi
