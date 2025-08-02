@@ -1,10 +1,10 @@
-"""Dynamic test function creator script for Textual Cookbook examples
+"""Dynamic test function creator script for Textual Cookbook recipes
 
 This script dynamically creates test functions for each example
-found in the examples directory.
+found in the recipes directory.
 
 How it works:
-1. It scans the `examples` directory for Python files.
+1. It scans the `recipes` directory for Python files.
 2. For each file, it attempts to load the module and find a subclass of `App`
     (the `get_app_class` function).
 3. If a subclass of `App` cannot be found or loaded, the test will fail.
@@ -21,7 +21,7 @@ from textual.app import App
 import pytest
 
 
-EXAMPLES_DIR = Path(__file__).parent.parent / "examples"
+EXAMPLES_DIR = Path(__file__).parent.parent / "recipes"
 
 
 def get_app_class(path: Path) -> type[App[None]] | None:
@@ -61,19 +61,19 @@ def get_app_class(path: Path) -> type[App[None]] | None:
         pytest.fail(f"Error while searching for App subclass in {module_name}", pytrace=False)
 
     if not issubclass(AppClass, App):   # type: ignore (NOT UNNECESSARY)
-        pytest.fail(f"Example {example_file.name} does not subclass App", pytrace=False)
+        pytest.fail(f"Example {recipe_file.name} does not subclass App", pytrace=False)
 
     return AppClass
 
 
-def make_test(example_file: Path):
+def make_test(recipe_file: Path):
     "The test function factory"
 
     async def proto_test():  
 
         AppClass = None
-        AppClass = get_app_class(example_file)
-        assert AppClass is not None, f"(proto_test) App class not found in {example_file}"
+        AppClass = get_app_class(recipe_file)
+        assert AppClass is not None, f"(proto_test) App class not found in {recipe_file}"
 
         app = AppClass()
         async with app.run_test() as pilot:
@@ -84,9 +84,9 @@ def make_test(example_file: Path):
     return proto_test
 
 
-for example_file in EXAMPLES_DIR.rglob("*.py"):
+for recipe_file in EXAMPLES_DIR.rglob("*.py"):
 
-    proto_test = make_test(example_file)    
-    test_name = f"test_script_{example_file.stem}"
+    proto_test = make_test(recipe_file)    
+    test_name = f"test_{recipe_file.stem}"
     proto_test.__name__ = test_name
     globals()[test_name] = proto_test
