@@ -21,7 +21,7 @@ Textual (I believe) automatically makes queries on the main App class
 start the query on the currently active screen, as opposed to including it
 in the query results.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 
 from textual import on

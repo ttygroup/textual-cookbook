@@ -2,7 +2,7 @@
 The spinner object changes its rendering internally, but Textual needs to be manually updated
 to reflect that change. This is done by using `set_interval` to call the `update_spinner` method.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from __future__ import annotations
 from typing import Any, TYPE_CHECKING

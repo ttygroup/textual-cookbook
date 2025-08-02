@@ -1,6 +1,6 @@
 """This example demonstrates how to create a ListView with tooltips for each item.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.app import App, ComposeResult
 from textual.widgets import Footer, Label, ListItem, ListView

@@ -1,7 +1,7 @@
 """This script demonstrates how the content of the MarkdownViewer widget
-can be upated using the `document.update()` method.
+can be updated using the `document.update()` method.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual import on
 from textual.app import App, ComposeResult

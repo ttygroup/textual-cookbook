@@ -1,7 +1,7 @@
 """This file demonstrates how to add the `control` method in a Textual message
 to allow it to be specified in CSS selectors (query, @on, etc.).
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 
 from __future__ import annotations

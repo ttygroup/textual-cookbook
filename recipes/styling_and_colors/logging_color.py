@@ -1,6 +1,6 @@
 """A very simple demonstration of colorirzed logging in Textual.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.app import App
 from rich.text import Text

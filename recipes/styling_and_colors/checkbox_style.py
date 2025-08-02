@@ -1,7 +1,7 @@
 """This script demonstrates how to modify the style of 
 a Checkbox widget in the 'on' state.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.app import App
 from textual.widgets import Static, Footer, Checkbox, Button

@@ -1,7 +1,7 @@
 """This file demonstrates how to use on_click to get the widget
 that was clicked within a Container in Textual.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.containers import Container
 from textual.widgets import Static

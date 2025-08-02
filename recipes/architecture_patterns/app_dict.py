@@ -1,7 +1,7 @@
 """This example demonstrates how to set up and read a dictionary on the app class
 in order to share data between different components.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual import on
 from textual.app import App

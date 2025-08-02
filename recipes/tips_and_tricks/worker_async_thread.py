@@ -4,7 +4,7 @@ a new event loop for the thread worker. This allows you to run async code
 in a separate thread while still being able to interact with the main Textual
 event loop and widgets.
 
-Example by Edward Jazzhands, 2025
+Recipe by Edward Jazzhands
 
 (THIS EXAMPLE IS ROUGH AND WORK IN PROGRESS)"""
 

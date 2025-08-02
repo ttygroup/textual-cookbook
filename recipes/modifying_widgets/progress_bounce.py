@@ -1,7 +1,7 @@
 """This example demonstrates a progress bar with a cool bouncing
 animation effect.
 
-Example by David Fokkema, 2025
+Recipe by David Fokkema
 https://github.com/davidfokkema"""
 
 import time

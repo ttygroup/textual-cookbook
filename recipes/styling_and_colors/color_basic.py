@@ -1,6 +1,6 @@
 """This example demonstrates basic usage of colored text in a Static widget
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.app import App
 from textual.widgets import Static

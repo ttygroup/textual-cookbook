@@ -2,7 +2,7 @@
 Note that the buttons are still focusable, but they will not show the
 default focus highlight.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.app import App
 from textual.widgets import Button

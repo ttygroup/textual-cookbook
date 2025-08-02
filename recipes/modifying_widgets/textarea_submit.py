@@ -2,7 +2,7 @@
 replicates the Submitted messge in the Input widget, and which can
 be triggered by pressing a key or combo (ctrl+s in this case).
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from __future__ import annotations
 from textual import on

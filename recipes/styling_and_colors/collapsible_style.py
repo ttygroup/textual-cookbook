@@ -1,7 +1,7 @@
 """This file shows how to change the color and style of the
 title/header of a Collapsible widget in Textual.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.app import App
 from textual.widgets import Collapsible, Button

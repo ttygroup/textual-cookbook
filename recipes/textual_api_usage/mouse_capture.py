@@ -11,7 +11,7 @@ will result in the mouse not being released when the mouse leaves the widget,
 and the mouse_up event will be triggered even if the mouse is not
 still over the widget.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from typing import Any
 from textual.app import App

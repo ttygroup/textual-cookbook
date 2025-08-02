@@ -5,8 +5,8 @@ description = "Textual Cookbook: Recipes for Textual Applications"
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
-    "pytest-html>=4.1.1",
     "textual>=5.1.1",
+    "textual-pyfiglet>=1.0.1",
 ]
 
 [dependency-groups]
@@ -15,8 +15,10 @@ dev = [
     "mypy>=1.17.1",
     "pytest>=8.4.1",
     "pytest-asyncio>=1.1.0",
+    "pytest-html>=4.1.1",
     "pytest-textual-snapshot>=1.1.0",
     "ruff>=0.12.7",
+    "textual-dev>=1.7.0",
 ]
 
 [tool.pytest.ini_options]
@@ -34,3 +36,4 @@ disallow_untyped_calls = true
 [tool.basedpyright]
 include = ["src"]
 typeCheckingMode = "strict"
+

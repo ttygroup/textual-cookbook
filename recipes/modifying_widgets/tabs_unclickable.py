@@ -3,7 +3,7 @@ tabs that cannot be clicked or interacted with by the user.
 They can only be changed programmatically, which is demonstrated
 by pressing the "Enter" key to switch to the next tab.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.app import App, ComposeResult
 from textual.widgets import Placeholder, Footer, TabbedContent, TabPane

@@ -3,7 +3,7 @@ with headers that change their appearance based on the sorting state.
 The arrows in the header label will flip direction when the user clicks
 on a header to indicate the current sort order.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 # python standard lib
 from __future__ import annotations
