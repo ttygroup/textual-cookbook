@@ -3,7 +3,7 @@ This isn't a public API, but it is used internally by Textual.
 It allows widgets to communicate with each other without sending events
 or passing in direct references to anything.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual import on
 from textual.app import App, ComposeResult

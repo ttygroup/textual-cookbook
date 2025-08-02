@@ -1,6 +1,6 @@
 """This example demonstrates how to create a button with markup text.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.app import App
 from textual.widgets import Footer, Button

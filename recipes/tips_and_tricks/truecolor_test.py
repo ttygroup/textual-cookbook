@@ -1,7 +1,7 @@
 """This script demonstrates how Textual can detect the color system
 in use and display a message accordingly.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.app import App
 from textual.widgets import Static, Footer

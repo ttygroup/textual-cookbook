@@ -3,7 +3,7 @@ that expands to fill the available space, while keeping other columns at
 fixed widths. The table will also auto-adjust the first column's width
 when the terminal is resized.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from typing import Any
 

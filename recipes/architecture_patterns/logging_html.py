@@ -3,7 +3,7 @@ in a Textual application to log errors to a file and display them
 in HTML format. The application includes a button that, when pressed,
 will intentionally cause an error, triggering the logging mechanism.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 # Python standard lib
 from datetime import datetime

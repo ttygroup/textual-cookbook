@@ -1,6 +1,6 @@
 """This script demonstrates how to use the configparser module in a Textual application.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 import configparser
 from pathlib import Path

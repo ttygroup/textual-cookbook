@@ -4,7 +4,7 @@ the _handle_tooltip_timer method of the Screen class in Textual.
 Pyright / Mypy do not like this file. I'm not even gonna bother trying to
 type hint it (I can assure you it works).
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from __future__ import annotations
 

@@ -3,7 +3,7 @@ animation with a custom spinner widget in Textual.
 The Spinner is using the rich.spinner module. You can replace the loading
 animation with any Textual widget. The SpinnerWidget is only one example.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 
 from __future__ import annotations

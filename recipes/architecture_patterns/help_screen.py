@@ -1,6 +1,6 @@
 """this file is a work in progress please ignore
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from __future__ import annotations
 import importlib.resources

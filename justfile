@@ -2,11 +2,11 @@
 install:
 	uv sync
 
-run script:
-	uv run recipes/{{script}}
+cook:
+	uv run recipe_runner.py
 
-run-dev script:
-	uv run textual run --dev recipes/{{script}}
+cook-dev:
+	uv run textual run --dev recipe_runner.py 
 
 # Runs ruff, exits with 0 if no issues are found
 lint script:

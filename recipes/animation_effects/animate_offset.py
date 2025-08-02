@@ -2,7 +2,7 @@
 using Textual's animation capabilities. The widget will move horizontally
 when the button is pressed, and the animation will last for 1 second.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.app import App, ComposeResult
 from textual.widgets import Static, Button

@@ -8,7 +8,7 @@ from functioning correctly, and it can lead to unexpected behavior.
 But its useful to keep this example up just as a demonstration of
 how one would do it.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from abc import ABC, abstractmethod
 from textual.widget import Widget

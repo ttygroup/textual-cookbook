@@ -1,9 +1,9 @@
-"""This file demonstartes how Textual can animate multiple widgets at once.
+"""This file demonstrates how Textual can animate multiple widgets at once.
 I'm honestly not sure exactly of how it handles it internally, but it
 seems to work fine when you simply run the animate method multiple times
 in a row. It will make them all run simultaneously.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.app import App
 from textual.widgets import Static, Button

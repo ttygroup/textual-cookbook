@@ -1,7 +1,7 @@
 """This file is a very simple example of how to use Textual CSS to
 set the sizes and borders of widgets.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual import on
 from textual.app import App

@@ -1,6 +1,6 @@
 """This script demonstrates how to use click links.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual.app import App, ComposeResult
 from textual.widgets import Label

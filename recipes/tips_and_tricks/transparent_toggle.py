@@ -1,7 +1,7 @@
 """This file demonstrates how to create a Textual application
 with a transparent background which can be toggled on and off.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from textual import on
 from textual.app import App

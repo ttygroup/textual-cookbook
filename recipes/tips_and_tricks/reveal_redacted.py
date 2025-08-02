@@ -7,7 +7,7 @@ The important part is the metadata (meta) applied to portions of the text.
 The mouse event handler checks the event.style.meta and updates the reveal_range
 reactive attribute accordingly.
 
-Example by Tom J Gooding, 2025"""
+Recipe by Tom J Gooding"""
 
 from __future__ import annotations  # <-- Added by Edward Jazzhands for 3.9 compatibility
 from rich.text import Text

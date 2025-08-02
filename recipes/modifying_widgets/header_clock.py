@@ -1,7 +1,7 @@
 """This demonstrates how to change the timezone of the header clock in Textual.
 This is performing a monkey patch.
 
-Example by Edward Jazzhands, 2025"""
+Recipe by Edward Jazzhands"""
 
 from zoneinfo import ZoneInfo
 from datetime import datetime
