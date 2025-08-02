@@ -3,23 +3,23 @@ install:
 	uv sync
 
 run script:
-	uv run {{script}}
+	uv run recipes/{{script}}
 
 run-dev script:
-	uv run textual run --dev {{script}}
+	uv run textual run --dev recipes/{{script}}
 
 # Runs ruff, exits with 0 if no issues are found
 lint script:
-  @uv run ruff check {{script}}
+  @uv run ruff check recipes/{{script}}
 
 # Runs mypy, exits with 0 if no issues are found
 typecheck script:
-  @uv run mypy {{script}}
-  @uv run basedpyright {{script}}
+  @uv run mypy recipes/{{script}}
+  @uv run basedpyright recipes/{{script}}
 
 # Runs black
 format script:
-  @uv run black {{script}}
+  @uv run black recipes/{{script}}
 
 # Runs pytest using whatever version of Textual is installed
 test:
