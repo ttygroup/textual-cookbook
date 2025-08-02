@@ -46,7 +46,8 @@ jobs:
 
   commit_reports:
     name: Commit and Push Reports
-    if: github.ref == 'refs/heads/main' # Only run on push to main branch
+    # Only run on push to main branch OR manually triggered:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     needs: run-tests
     permissions:
@@ -55,6 +56,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Switch to reports branch
+        run: |
+          git fetch origin reports || true
+          git checkout -B reports origin/reports || git checkout -B reports
 
       # Download the reports from the previous job
       - name: Download test reports
@@ -67,12 +73,6 @@ jobs:
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
-          # Fetch the remote reports branch first
-          git fetch origin reports || true
-
-          # Then create/switch to reports branch based on what we just fetched
-          git checkout -B reports origin/reports || git checkout -B reports
           
           git add docs/reports/
           
