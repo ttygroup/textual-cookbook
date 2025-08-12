@@ -1,6 +1,6 @@
 """Config file for Nox sessions
 By Edward Jazzhands - 2025
-
+reuse_existing_virtualenvs
 NOTE ABOUT NOX CONFIG:
 If you are doing dev work in some kind of niche environment such as a Docker
 container or on a server, you might not have symlinks available to you.
@@ -21,10 +21,14 @@ Nox would just delete them when starting a new session anyway.
 import nox
 import pathlib
 import shutil
+import json
+import glob
+import os
 
 # PYTHON_VERSIONS = ["3.9", "3.12"]
-PYTHON_VERSIONS = ["3.9"]
-TEXTUAL_VERSIONS = [5.1, 3.0, 2.1, 1.0]
+PYTHON_VERSIONS = ["3.10"]
+# TEXTUAL_VERSIONS = [5.1, 3.0, 2.1, 1.0]
+TEXTUAL_VERSIONS = [5.3, 4.0, 3.7]
 
 ##############
 # NOX CONFIG #
@@ -42,11 +46,16 @@ if nox.options.reuse_existing_virtualenvs and DELETE_VENV_ON_EXIT:
     )
 
 nox_report_path = pathlib.Path("docs/reports") / "nox-report.md"
-nox_report_path.unlink(missing_ok=True) 
+nox_report_path.unlink(missing_ok=True)
+
+file_index_path = pathlib.Path("docs/reports") / "file_index.json"
+file_index_path.unlink(missing_ok=True)
+file_index: dict[str, str] = {}
 
 ################
 # NOX SESSIONS #
 ################
+
 
 @nox.session(
     venv_backend="uv",
@@ -71,41 +80,57 @@ def tests(session: nox.Session, ver: int) -> None:
     major, minor = str(ver).split(".")
     next_minor = f"{major}.{int(minor)+1}"
     session.run_install(
-        "uv", "pip", "install",
+        "uv",
+        "pip",
+        "install",
         f"textual>={ver},<{next_minor}.0",
         external=True,
     )
     session.run("uv", "pip", "show", "textual")
     # EXPLANATION: This will install the latest patch release for the specified minor
-    # version series (e.g., 5.1.x, 5.3.x, etc.) by using textual>={ver},<{next_minor}.0. 
+    # version series (e.g., 5.1.x, 5.3.x, etc.) by using textual>={ver},<{next_minor}.0.
     # To test a new minor version, just add it to TEXTUAL_VERSIONS.
     # The last `uv pip show textual` is just for logging purposes.
 
     # These are all assuming you have corresponding
     # sections in your pyproject.toml for configuring each tool:
-    # session.run("ruff", "check", "src")       
-    # session.run("mypy", "src")                
+    # session.run("ruff", "check", "src")
+    # session.run("mypy", "src")
     # session.run("basedpyright", "src")
-    report_file = f"{session.name}-report.html"
+    report_html = f"{session.name}-report.html"
+    html_path = f"docs/reports/{report_html}"
+    report_json = f"{session.name}-summary.json"
+    json_path = f"docs/reports/{report_json}"
 
     try:
         session.run(
-            "pytest", "tests", "-v",
-            f"--html=docs/reports/{report_file}", "--self-contained-html",
-            "--css=docs/reports/dark_theme.css"
-            # success_codes=[0, 1],  # Allow pytest to exit with code 1 for failed tests
+            "pytest",
+            "tests",
+            "-v",
+            f"--html={html_path}",
+            "--self-contained-html",
+            "--css=docs/reports/dark_theme.css",
+            "--json-report",
+            "--json-report-summary",
+            f"--json-report-file={json_path}",
+            "--json-report-indent=4",
         )
     except Exception:
         with nox_report_path.open("a") as report_file_handle:
-            report_file_handle.write(
-                f"## {session.name} - {ver} | Error Found\n\n"
-            )
+            report_file_handle.write(f"## {session.name} - {ver} | Error Found\n\n")
     else:
         with nox_report_path.open("a") as report_file_handle:
-            report_file_handle.write(
-                f"## {session.name} - {ver} | All Success\n\n"
-            )
+            report_file_handle.write(f"## {session.name} - {ver} | All Success\n\n")
 
+    # This creates a list of all generated report files
+    # to access them from the reports website
+    file_index[session.name] = {
+        "json": report_json,
+        "html": report_html,
+        "textual": ver,
+    }
+    with open(file_index_path, "w") as f:
+        json.dump(file_index, f, indent=4)
 
     # This code here will make Nox delete each session after it finishes.
     # This might be preferable to allowing it all to accumulate and then deleting

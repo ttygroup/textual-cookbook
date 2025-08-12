@@ -1,0 +1,126 @@
+/* loading screen */
+#spinner_container {
+    align: center middle; 
+    &.fullscreen { height: 1fr; }
+    &.inline { height: auto; }
+}
+SpinnerWidget { 
+    height: 1;
+    width: auto; 
+}
+
+/* main screen */
+TableScreen {
+    layout: horizontal;
+    overflow-x: hidden; 
+    overflow-y: hidden;
+    # background: transparent;
+    # border-top: dashed $foreground 70% ;
+    # border-bottom: dashed $foreground 70% ;
+    # border: none;
+    # min-height: 20;
+    # max-height: 30;
+    # height: 100%;
+    #main_container {
+        #header_container {
+            height: 4;
+            margin: 0 1;
+            #header_text {
+                height: 1;
+                padding: 0 1;
+                text-wrap: nowrap;
+            }
+            FigletWidget { width: 62; height: 2; }
+        }
+        #table_container {
+            margin: 0 1;
+            height: 1fr;
+            width: 1fr;
+            & > CustomDataTable { 
+                overflow-x: hidden;
+                # width: auto;
+                & > .datatable--header { background: $panel; }    
+                # & > .datatable--cursor { background: $surface; }
+                & > .datatable--header-cursor { background: $panel; }    
+                & > .datatable--header-hover { background: $panel; }
+                # & > .datatable--hover { background: $surface; }  
+            }
+        }
+        #bottom_container {
+            margin: 0 1;
+            height: 5;
+            & > SummaryBar { 
+                height: 1; 
+                background: $panel-darken-1; 
+                #sum_label, #sum_filler { width: 1fr; }
+                .sum_cell { padding: 0 1; }  
+            }
+            & > #controls_bar { 
+                height: 1; 
+                padding: 0 1; 
+                background: $panel;
+            }
+        }    
+    }
+    CodeContainer {
+        # min-width: 74;
+        Vertical {
+            TextArea {
+                border: none;
+                padding: 1;
+            }
+            Horizontal {
+                height: 1;
+                background: $panel;
+                Static { 
+                    color: $success; 
+                    width: auto;
+                    padding: 0 1;
+                }
+                Button { 
+                    min-width: 7; 
+                    dock: right;
+                    &:hover {background: $success;}
+                }
+            }
+        }   
+    } 
+}
+
+.button_container {
+    width: auto;
+    height: auto;
+    & > Button {
+        border: round $primary 50%;
+        background: transparent;
+        &:focus {
+            text-style: none;
+            border: round $primary;
+        }
+        &:hover {
+            border: round $primary;
+        }
+        &.-active {
+            background: transparent;
+            border: round $accent;
+            tint: $surface 0%;
+        }
+    }
+}
+.modal { width: 1fr; }
+
+DescriptionScreen, ErrorScreen {
+    align: center middle;
+    .description_container {
+        width: 50%;
+        max-width: 75;
+        height: auto;
+        padding: 1;
+        border: hkey $primary;
+        Markdown, Static {
+            width: 1fr;
+            height: auto;
+            background: transparent;
+        }
+    }
+}

@@ -3,15 +3,51 @@ name = "textual-cookbook"
 version = "0.1.0"
 description = "Textual Cookbook: Recipes for Textual Applications"
 readme = "README.md"
-requires-python = ">=3.9"
-dependencies = [
-    "textual>=5.1.1",
-    "textual-pyfiglet>=1.0.1",
+requires-python = ">=3.10"
+authors = [
+    { name = "edward-jazzhands", email = "ed.jazzhands@gmail.com" }
 ]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+keywords = ["python", "textual", "tui", "cookbook"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3 :: Only",
+]
+
+dependencies = [
+    "textual[syntax]>=5.3.0",
+    "textual-pyfiglet>=1.0.1",
+    "pytest-json-report>=1.5.0",
+]
+
+[project.urls]
+Repository = "https://github.com/ttygroup/textual-cookbook"
+Changelog = "https://github.com/ttygroup/textual-cookbook/blob/master/CHANGELOG.md"
+
+[build-system]
+requires = ["uv_build>=0.8.0,<0.9"]
+build-backend = "uv_build"
+
+[project.scripts]
+textual-cookbook = "textual_cookbook.main:run_main"
+
+##########################
+# Dev Dependency Configs #
+##########################
+
 
 [dependency-groups]
 dev = [
     "basedpyright>=1.31.0",
+    "black>=25.1.0",
     "mypy>=1.17.1",
     "pytest>=8.4.1",
     "pytest-asyncio>=1.1.0",
@@ -19,6 +55,7 @@ dev = [
     "pytest-textual-snapshot>=1.1.0",
     "ruff>=0.12.7",
     "textual-dev>=1.7.0",
+    "tomli>=2.2.1",
 ]
 
 [tool.pytest.ini_options]
