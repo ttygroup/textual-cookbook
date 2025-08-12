@@ -1,0 +1,17 @@
+{
+    "tests-3.10(ver=5.3)": {
+        "json": "tests-3.10(ver=5.3)-summary.json",
+        "html": "tests-3.10(ver=5.3)-report.html",
+        "textual": 5.3
+    },
+    "tests-3.10(ver=4.0)": {
+        "json": "tests-3.10(ver=4.0)-summary.json",
+        "html": "tests-3.10(ver=4.0)-report.html",
+        "textual": 4.0
+    },
+    "tests-3.10(ver=3.7)": {
+        "json": "tests-3.10(ver=3.7)-summary.json",
+        "html": "tests-3.10(ver=3.7)-report.html",
+        "textual": 3.7
+    }
+}

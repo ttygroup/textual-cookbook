@@ -1,0 +1,12 @@
+{
+    "created": 1755040131.1480074,
+    "duration": 6.953523874282837,
+    "exitcode": 0,
+    "root": "/home/devuser/workspace/vscode-projects/textual-cookbook",
+    "environment": {},
+    "summary": {
+        "passed": 40,
+        "total": 40,
+        "collected": 40
+    }
+}
