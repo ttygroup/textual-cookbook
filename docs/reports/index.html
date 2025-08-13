@@ -203,63 +203,23 @@
         <p class="subtitle">See how each example runs on different Textual versions</p>
 
         <p class="subtitle">
-            Note that Python 3.9 is used for all tests (Textual's minimum supported Python is 3.8
-            but we don't test on 3.8 due to its end of life status).
+            Note that Python 3.10 is used for all tests.
         </p>
 
-        
+        <!-- From here down should all be dynamic -->
         <div class="stats">
             <div class="stat-item">
-                <!-- Note that this Recipes Tested number is currently hard coded -->
-                <!-- Obviously this should be dynamically set in the future -->
-                <span class="stat-number">39</span>
+                <span class="stat-number" id="recipes-tested">...</span>
                 <span class="stat-label">Recipes Tested</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number">5.1.0</span>
+                <span class="stat-number" id="latest-textual">...</span>
                 <span class="stat-label">Latest Textual Tested</span>
             </div>
         </div>
 
-        <!-- REMEMBER: <span class="code-accent">TEXT</span> -->
-
-        <div class="reports-grid">
-            <a href="tests-3.9(ver=5.1)-report.html" class="report-item">
-                <div class="report-title">
-                    Textual v5.1
-                </div>
-                <div class="report-description">
-                    Running on Python 3.9
-                </div>
-            </a>
-
-            <a href="tests-3.9(ver=3.0)-report.html" class="report-item">
-                <div class="report-title">
-                    Textual v3.0
-                </div>
-                <div class="report-description">
-                    Running on Python 3.9
-                </div>
-            </a>
-
-            <a href="tests-3.9(ver=2.1)-report.html" class="report-item">
-                <div class="report-title">
-                    Textual v2.1
-                </div>
-                <div class="report-description">
-                    Running on Python 3.9
-                </div>
-            </a>
-
-            <a href="tests-3.9(ver=1.0)-report.html" class="report-item">
-                <div class="report-title">
-                    Textual v1.0
-                </div>
-                <div class="report-description">
-                    Running on Python 3.9
-                </div>
-            </a>
-
+        <div class="reports-grid" id="reports-grid">
+            <!-- Static content removed - will be populated dynamically -->
         </div>
 
         <div class="footer">
@@ -267,4 +227,60 @@
         </div>
     </div>
 </body>
+
+<script>
+    fetch('./file_index.json')
+        .then(r => r.json())
+        .then(index => {
+            console.log('Loaded index:', index);
+            
+            // First, populate the report list
+            const container = document.getElementById('reports-grid');
+            container.innerHTML = '';
+            
+            Object.entries(index).forEach(([label, paths]) => {
+                const link = document.createElement('a');
+                link.href = `./${paths.html}`;
+                link.className = 'report-item';
+                
+                const title = document.createElement('div');
+                title.className = 'report-title';
+                title.textContent = label;
+                
+                const description = document.createElement('div');
+                description.className = 'report-description';
+                description.textContent = `Running on Python 3.10`; // Updated to match your note
+                
+                link.appendChild(title);
+                link.appendChild(description);
+                container.appendChild(link);
+            });
+    
+            // Calculate latest version from index
+            const latestVersion = Math.max(...Object.values(index).map(entry => entry.textual));
+            console.log('Latest version:', latestVersion);
+            document.getElementById('latest-textual').textContent = `v${latestVersion}`;
+    
+            // Then, fetch all JSON summary files for stats
+            const jsonPromises = Object.entries(index).map(([label, paths]) => 
+                fetch(`./${paths.json}`)
+                    .then(r => r.json())
+                    .then(summary => {
+                        console.log(`Loaded summary for ${label}:`, summary);
+                        return { label, summary };
+                    })
+            );
+            return Promise.all(jsonPromises);
+        })
+        .then(labeledSummaries => {
+            console.log('All summaries loaded:', labeledSummaries);
+            
+            const totalPassed = labeledSummaries[0]?.summary.summary?.passed || 0;
+            
+            console.log('Total passed:', totalPassed);
+            document.getElementById('recipes-tested').textContent = totalPassed;
+        })
+        .catch(err => console.error('Failed to load reports or stats:', err));
+    </script>
+    
 </html>
