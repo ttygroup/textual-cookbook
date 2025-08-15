@@ -9,9 +9,13 @@ cook:
 cook-dev:
 	uv run textual run --dev src/textual_cookbook/main.py
 
-# This can be used for running individual scripts without using the runner app
+# Run the console
+console:
+	uv run textual console -x EVENT -x SYSTEM
+
+# Run individual scripts in dev mode
 run script:
-	uv run src/textual_cookbook/recipes/{{script}}
+	uv run textual run --dev src/textual_cookbook/recipes/{{script}}
 
 # Runs ruff, exits with 0 if no issues are found
 lint script:
