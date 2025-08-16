@@ -23,7 +23,7 @@ from textual import on, work, events
 from textual.app import App, ComposeResult
 from textual.widget import Widget
 from textual.widgets import Static, DataTable, Button, Markdown, TextArea
-from textual.widgets.data_table import ColumnKey, Column
+from textual.widgets.data_table import ColumnKey, Column, RowDoesNotExist
 from textual.screen import Screen, ModalScreen
 from textual.message import Message
 from textual.containers import Horizontal, Vertical
@@ -232,6 +232,7 @@ class CustomDataTable(DataTable[Any]):
                 SortableText(recipe_data["name"], overflow="ellipsis"),
                 SortableText(recipe_data["category"], overflow="ellipsis"),
                 SortableText(recipe_data["author"], overflow="ellipsis"),
+                key= recipe_data["name"],
             )        
 
     @on(DataTable.HeaderSelected)
@@ -290,10 +291,17 @@ class TableScreen(Screen[None]):
         Binding("d", "show_description", "Show Description"),
     ]
 
-    def __init__(self, recipe_data_dict: dict[str, RecipeData]) -> None:
+    def __init__(
+        self, 
+        recipe_data_dict: dict[str, RecipeData],
+        starting_selection: str | None = None,
+        run_immediately: bool = False,
+    ) -> None:
         super().__init__()
         self.recipe_data_dict = recipe_data_dict
         self.selected_recipe = None
+        self.starting_selection = starting_selection
+        self.run_immediately = run_immediately
 
     def compose(self) -> ComposeResult:
 
@@ -325,6 +333,22 @@ class TableScreen(Screen[None]):
                 with Horizontal(classes="button_container"):
                     yield Button("Quit", id="quit_button", compact=True)
         yield CodeContainer()
+        
+    async def on_mount(self):
+        if self.starting_selection:
+            try:
+                row_index = self.table.get_row_index(self.starting_selection)
+            except RowDoesNotExist:
+                self.notify(
+                    f"Recipe '{self.starting_selection}' not found in table."
+                )
+                return
+            else:
+                self.table.move_cursor(row=row_index)
+                await self.table.run_action("select_cursor")
+                if self.run_immediately:
+                    # This will trigger the recipe_selected event
+                    await self.table.run_action("select_cursor")
 
     def action_sort_column(self, column_index: int) -> None:
 
@@ -397,6 +421,15 @@ class TableScreen(Screen[None]):
 class CookBookApp(App[None]):
 
     CSS_PATH = "styles.tcss"
+    
+    def __init__(
+        self,
+        starting_recipe: str | None = None,
+        run: bool = False,
+    ) -> None:
+        super().__init__()
+        self.starting_recipe = starting_recipe
+        self.run_immediately = run
 
     class WorkerFinished(Message):
         def __init__(self, recipe_data_dict: dict[str, RecipeData]) -> None:
@@ -446,10 +479,17 @@ class CookBookApp(App[None]):
     @on(WorkerFinished)
     async def worker_finished(self, message: WorkerFinished) -> None:
 
-        await self.push_screen(TableScreen(message.recipe_data_dict))
+        await self.push_screen(
+            TableScreen(
+                message.recipe_data_dict, 
+                starting_selection=self.starting_recipe,
+                run_immediately=self.run_immediately,
+            )
+        )
 
 def run_main() -> None:
     CookBookApp().run()
+    
 
 if __name__ == "__main__":
     run_main()
