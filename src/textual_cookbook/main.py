@@ -189,8 +189,8 @@ class CodeContainer(Horizontal):
             )
 
     def update(self, recipe_data: RecipeData):
-        self.query_one("#current_recipe", Static).update(f"🗎 {recipe_data['name']}.py  │")
-        self.query_one("#current_category", Static).update(f"🗁  {recipe_data['category']}")
+        self.query_one("#current_recipe", Static).update(f"📄 {recipe_data['name']}.py  │")
+        self.query_one("#current_category", Static).update(f"📁 {recipe_data['category']}")
         text_area = self.query_one(TextArea)
         text_area.language = "python"
         text_area.text = recipe_data['text_blob']
