@@ -2,7 +2,10 @@
 options and select them accordingly. The options are from \
 `Starlight (Keep Me Afloat) - Martin Garrix` <3
 
-Example by NSPC911, 2025"""
+Recipe by NSPC911
+https://github.com/NSPC911"""
+
+import sys
 
 from textual import events
 from textual.app import App, ComposeResult
@@ -87,11 +90,14 @@ class NarrowOptionsWithInput(ModalScreen):
                 self.focus_previous()
 
 
-class Application(App):
+class TextualApp(App):
     def compose(self) -> ComposeResult:
         yield Button("Show the improved optionlist")
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         self.push_screen(NarrowOptionsWithInput(starlight, "Starlight (Keep Me Afloat)"), lambda x: self.notify(str(x)))
 
-Application().run()
+if __name__ == "__main__":
+    app = TextualApp()
+    app.run()
+    sys.exit(app.return_code)

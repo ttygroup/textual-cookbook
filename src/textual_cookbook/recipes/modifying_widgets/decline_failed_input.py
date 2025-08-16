@@ -1,4 +1,12 @@
+"""This script shows a custom Input element, that can decline a value if it \
+does not meet the validators' criterias (in this case, requires both a 'h'\
+and 'i' to exist) for it to be allowed.
+
+Recipe by NSPC911
+https://github.com/NSPC911"""
+
 from asyncio import sleep
+import sys
 
 from textual import events, work
 from textual.app import App, ComposeResult
@@ -77,7 +85,7 @@ class ModalInput(ModalScreen):
             event.stop()
             self.dismiss("")
 
-class Application(App):
+class TextualApp(App):
     CSS = """
     ModalInput {
       align: center middle;
@@ -105,4 +113,7 @@ class Application(App):
     def on_button_pressed(self, event: Button.Pressed) -> None:
         self.push_screen(ModalInput("What word do you start a greeting with?"), callback=self.notify)
 
-Application().run()
+if __name__ == "__main__":
+    app = TextualApp()
+    app.run()
+    sys.exit(app.return_code)
