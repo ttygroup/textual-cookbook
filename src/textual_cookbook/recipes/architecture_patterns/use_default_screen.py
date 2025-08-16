@@ -10,6 +10,8 @@ application-wide bindings.
 Recipe by David Fokkema
 """
 
+import sys
+
 from textual import on
 from textual.app import App, ComposeResult
 from textual.containers import HorizontalGroup, VerticalGroup
@@ -133,4 +135,7 @@ class MainApp(App[None]):
         self.push_screen(ConfirmQuitScreen(), callback=callback)
 
 
-MainApp().run()
+if __name__ == "__main__":
+    app = MainApp()
+    app.run()
+    sys.exit(app.return_code)
