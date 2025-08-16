@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.10"
 
 [[package]]
@@ -1012,7 +1012,7 @@ wheels = [
 
 [[package]]
 name = "textual-cookbook"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "pytest-json-report" },
@@ -1038,7 +1038,7 @@ dev = [
 requires-dist = [
     { name = "pytest-json-report", specifier = ">=1.5.0" },
     { name = "textual", extras = ["syntax"], specifier = ">=5.3.0" },
-    { name = "textual-pyfiglet", specifier = ">=1.0.1" },
+    { name = "textual-pyfiglet", specifier = ">=1.1.0" },
 ]
 
 [package.metadata.requires-dev]
