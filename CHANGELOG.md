@@ -1,5 +1,25 @@
 # Textual Cookbook Changelog
 
+## [0.5.0] 2025-08-16
+
+- Added new CLI launcher. It is now possible to enter recipes as an argument when launchin the cookbook, like so:
+
+  ```bash
+  uvx textual-cookbook spinner_widget
+  ```
+
+The above line will immediately select the spinner_widget recipe and display it in the code viewer. Furthermore you can also provide the -r or --run flag to immediately run the recipe:
+
+  ```bash
+  uvx textual-cookbook spinner_widget -r
+  ```
+
+The `just cook` command in the justfile was also modified to reflect this change, so you can now do:
+
+  ```bash
+  just cook spinner_widget -r
+  ```
+
 ## [0.4.0] 2025-08-16
 
 - Added 2 new recipes by NSPC911 (#15 by @NSPC911):

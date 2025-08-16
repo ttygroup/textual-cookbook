@@ -2,8 +2,8 @@
 install:
 	uv sync
 
-cook:
-	uv run textual-cookbook
+cook script='' flags='':
+	uv run textual-cookbook {{script}} {{flags}}
 
 # Note this only runs the recipe runner itself in dev mode
 cook-dev:
@@ -14,7 +14,7 @@ console:
 	uv run textual console -x EVENT -x SYSTEM
 
 # Run individual scripts in dev mode
-run script:
+script-dev script:
 	uv run textual run --dev src/textual_cookbook/recipes/{{script}}
 
 # Runs ruff, exits with 0 if no issues are found
