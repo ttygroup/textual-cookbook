@@ -1,5 +1,5 @@
-"""This file demonstrates an improved optionlist, where you can search for the available\
-options and select them accordingly. The options are from \
+"""This file demonstrates an improved optionlist, where you can search for the available
+options and select them accordingly. The options are from
 `Starlight (Keep Me Afloat) - Martin Garrix` <3
 
 Recipe by NSPC911
@@ -13,6 +13,8 @@ from textual.containers import VerticalGroup
 from textual.screen import ModalScreen
 from textual.widgets import Button, Input, OptionList
 from textual.widgets.option_list import Option
+
+from textual.fuzzy import Matcher
 
 starlight = [
     "I see you through the clouds",
@@ -35,6 +37,8 @@ class NarrowOptionsWithInput(ModalScreen):
         super().__init__(**kwargs)
         self.placeholder = placeholder
         self.options = options
+        # when there are styled options available
+        self._option_mapping = {}
 
     def compose(self) -> ComposeResult:
         with VerticalGroup(id="root"):
@@ -49,17 +53,28 @@ class NarrowOptionsWithInput(ModalScreen):
         value = event.value
         optionlist: OptionList = self.query_one(OptionList)
         optionlist.clear_options()
-        for option in self.options:
-            if isinstance(option, Option):
-                if value.lower() in option.prompt.lower():
-                    optionlist.add_option(option)
-            elif isinstance(option, str):
-                if value.lower() in option.lower():
-                    optionlist.add_option(option)
+        if event.value == "":
+            optionlist.add_options(self.options)
+        else:
+            matcher = Matcher(value, match_style="underline")
+            matches = []
+            self._option_mapping.clear()
+            for option in self.options:
+                prompt = option.prompt if isinstance(option, Option) else str(option)
+                score = matcher.match(prompt)
+                if score > 0:
+                    highlighted_content = matcher.highlight(prompt)
+                    option_obj = Option(highlighted_content)
+                    matches.append((score, option_obj, prompt))
+            if matches:
+                matches.sort(reverse=True, key=lambda tup: tup[0])
+                for _, option_obj, original_prompt in matches:
+                    optionlist.add_option(option_obj)
+                    self._option_mapping[option_obj.prompt] = original_prompt
             else:
-                raise TypeError(f"Unexpected {type(option)} found.")
-        if optionlist.option_count == 0:
-            optionlist.add_option(Option("--no matches--", disabled=True))
+                nomatch = Option("--no matches--", disabled=True)
+                optionlist.add_option(nomatch)
+                self._option_mapping[nomatch.prompt] = None
         optionlist.highlighted = 0
 
     def on_input_submitted(self, event: Input.Submitted) -> None:
@@ -69,7 +84,10 @@ class NarrowOptionsWithInput(ModalScreen):
         optionlist.action_select()
 
     def on_option_list_option_selected(self, event: OptionList.OptionSelected):
-        self.dismiss(event.option.prompt)
+        # Map back to the original string (not the Content object)
+        prompt = event.option.prompt
+        result = self._option_mapping.get(prompt, prompt)
+        self.dismiss(result)
 
     def on_key(self, event: events.Key) -> None:
         """Handle key presses."""
