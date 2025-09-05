@@ -1,5 +1,7 @@
 """This script demonstrates how to modify the style of 
-a Checkbox widget in the 'on' state.
+a Checkbox widget. It shows removing the label highlight
+when focused as well as changing the color of the check symbol
+in the 'on' state.
 
 Recipe by Edward Jazzhands"""
 
@@ -19,15 +21,19 @@ class TextualApp(App[None]):
             color: $text-success;
             background: green;
         }
+        &:focus {
+            & > .toggle--label {
+                background: transparent;
+            }
+        }
     } 
-
     """
     
     def compose(self):
 
         with Container(id="my_container"):
             yield Static("Hello, Textual!")
-            yield Checkbox()
+            yield Checkbox("My Checkbox")
             yield Button()
 
         yield Footer()
